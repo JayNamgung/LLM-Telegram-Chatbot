@@ -1,15 +1,15 @@
 ###### 기본 정보 설정 단계 ######
-import urllib3
+import requests
 import json
 import openai
 from fastapi import Request, FastAPI
 
 # OpenAI API KEY
-API_KEY = "API_key"
+API_KEY = "TODO"
 openai.api_key = API_KEY
 
 # Telegram Token
-BOT_TOKEN = "Token"
+BOT_TOKEN = "TODO"
 
 ###### 서버 생성 단계 #####
 
@@ -33,7 +33,7 @@ def sendMessage(chat_id, text,msg_id):
         'text': text,
         'reply_to_message_id': msg_id
     }
-    http = urllib3.PoolManager()
+    http = requests.Session()
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
     response = http.request('POST',url ,fields=data)
     return json.loads(response.data.decode('utf-8'))
@@ -45,7 +45,7 @@ def sendPhoto(chat_id, image_url,msg_id):
         'photo': image_url,
         'reply_to_message_id': msg_id
     }
-    http = urllib3.PoolManager()
+    http = requests.Session()
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendPhoto"
     response = http.request('POST',url ,fields=data)
     return json.loads(response.data.decode('utf-8'))
